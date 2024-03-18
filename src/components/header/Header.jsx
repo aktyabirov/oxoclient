@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Logo from "../../assets/icon/Logo";
 import MessagesIcon from "../../assets/icon/MessagesIcon";
 import ProfileIcon from "../../assets/icon/ProfileIcon";
@@ -14,9 +14,16 @@ import { SearchCard } from "../SearchCard";
 const Header = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [showResults, setShowResults] = useState(false);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const { data, isLoading } = useSearch(debouncedSearchTerm);
-  
+
+  const clearSearchInput = () => {
+    setSearchTerm("");
+    setShowResults(false); // Also hide the search results
+  };
+
+
   return (
     <div>
       <div className="bg-white">
@@ -60,24 +67,29 @@ const Header = () => {
             className="border border-thirdary rounded-tl-md rounded-bl-md py-2 w-[560px] pl-10"
             type="text"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setShowResults(e.target.value.length > 1);
+            }}
             placeholder="Search..."
           />
           <div className="absolute top-2 left-2 ">
             <SearchIcons />
           </div>
           <div className="search-results">
-            {isLoading ? (
-              <div>Loading...</div>
-            ) : (
-              searchTerm.length > 1 &&
-              (data?.length > 0 ? (
-                data.map((item) => <SearchCard key={item.id} {...item} />)
-              ) : (
-                <div>No results found.</div>
-              ))
-            )}
-          </div>
+  {showResults && (isLoading ? (
+    <div>Loading...</div>
+  ) : (
+    searchTerm.length > 1 && (
+      data?.length > 0 ? (
+        data.map((item) => <SearchCard key={item.id} {...item} clearSearch={clearSearchInput} />)
+      ) : (
+        <div>No results found.</div>
+      )
+    )
+  ))}
+</div>
+
         </div>
         <div className="search_location relative">
           <input

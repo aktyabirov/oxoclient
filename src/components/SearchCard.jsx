@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export const SearchCard = ({ id, productUrl, title, price, location }) => {
+export const SearchCard = ({ id, productUrl, title, price, location, clearSearch }) => {
   const navigate = useNavigate();
 
   const navigateToProductDetail = () => {
-    navigate(`/all/${id}`);
+      navigate(`/all/${id}`);
+      clearSearch();
   };
 
   return (
