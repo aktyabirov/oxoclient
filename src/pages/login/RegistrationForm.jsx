@@ -25,7 +25,7 @@ const RegistrationForm = () => {
   const onSubmit = async (data) => {
     console.log("Registration form submitted", data);
     try {
-      const response = await axios.post("http://localhost:8080/users", data);
+      const response = await axios.post("https://oxoserver.onrender.com/users", data);
       console.log(response.data); 
       localStorage.setItem("token", response.data.accessToken);
       navigate("/"); 

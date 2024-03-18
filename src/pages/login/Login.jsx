@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { EyeOffIcon, EyeIcon } from '../../assets/icon/EyeIcon';
 import Cookies from 'js-cookie';
+import { toast } from "react-toastify";
 
 const loginSchema = z.object({
   email: z.string().min(1, "This field has to be filled.").email("This is not a valid email."),
@@ -27,7 +28,7 @@ const LoginForm = () => {
   const onSubmit = async (data) => {
     console.log("Login form submitted", data);
     try {
-      const response = await axios.post("http://localhost:8080/login", data, {
+      const response = await axios.post("https://oxoserver.onrender.com/login", data, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -36,7 +37,7 @@ const LoginForm = () => {
       Cookies.set("token", response.data.accessToken, { expires: 7 });
       navigate("/");
     } catch (error) {
-      console.error("Login error:", error.response ? error.response.data : error);
+      toast.error("Login error:", error.response ? error.response.data : error);
     }
   };
 

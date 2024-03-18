@@ -6,7 +6,7 @@ import ProductCard from './ProductCard';
 const PRODUCTS_PER_PAGE = 10;
 
 const fetchProducts = async ({ pageParam = 1 }) => {
-  const response = await axios.get(`http://localhost:8080/all?_page=${pageParam}&_limit=${PRODUCTS_PER_PAGE}`);
+  const response = await axios.get(`https://oxoserver.onrender.com/all?_page=${pageParam}&_limit=${PRODUCTS_PER_PAGE}`);
   return { data: response.data, nextPage: pageParam + 1, totalPages: Math.ceil(response.headers['x-total-count'] / PRODUCTS_PER_PAGE) };
 };
 
@@ -47,12 +47,14 @@ const ProductList = () => {
         </React.Fragment>
       ))}
       </div>
-      <button
+      <div className='flex justify-center pt-2 pb-2'>
+      <button className='bg-black text-white rounded-md items-center px-2 py-2'
         onClick={() => fetchNextPage()}
         disabled={!hasNextPage || isFetchingNextPage}
       >
         {isFetchingNextPage ? 'Loading more...' : hasNextPage ? 'Load More' : ''}
       </button>
+      </div>
     </div>
 
   );

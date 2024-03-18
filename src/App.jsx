@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import CategoryPage from "./pages/single-category/CategoryPage";
 import { SupportPage } from "./pages/support/SupportPage";
 import ProductDetailPage from "./pages/product-detail/ProductDetail";
+import FavoritesPage from "./pages/favorites/FavoritesPage";
 
 
 function App() {
@@ -22,7 +23,8 @@ function App() {
           <Route path="/createproduct" element = {<CreateProduct/>}/>
           <Route path="/:categoryKey" element={<CategoryPage />} />
           <Route path="/supportPage" element = {<SupportPage/>}/>
-          <Route path="/all/:id" element={<ProductDetailPage />} />
+          <Route path="/:categoryKey/:id" element={<ProductDetailPage />} />
+          <Route path="/favorites" element = {<FavoritesPage/>}/>
         </Route>
       </Routes>
     </Router>

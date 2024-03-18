@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const request = axios.create({ baseURL: "http://localhost:8080/" });
+const request = axios.create({ baseURL: "https://oxoserver.onrender.com/" });
 
 const getAuthToken = () => localStorage.getItem('token');
 
@@ -12,7 +12,7 @@ const PostData = (config) => {
       config.method == "post"
     ) {
       axios
-        .post("http://localhost:8080/all", JSON.parse(config.data))
+        .post("https://oxoserver.onrender.com/all", JSON.parse(config.data))
         .then((res) => {
           console.log(res.data);
         });

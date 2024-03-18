@@ -4,6 +4,8 @@ import { toggleLike } from "../features/products/likesSlice";
 import LikeIcon from "../assets/icon/LikeIcon";
 import { NotLikeIcon } from "../assets/icon/NotLikeIcon";
 import { useNavigate } from "react-router-dom";
+import { useParams } from 'react-router-dom';
+
 
 const ProductCard = ({
   id,
@@ -22,6 +24,7 @@ const ProductCard = ({
     dispatch(toggleLike(id));
   };
 
+
   const date = new Date(postedTime);
   const readableDate = date.toLocaleDateString(undefined, {
     year: "numeric",
@@ -32,11 +35,12 @@ const ProductCard = ({
     hour: "2-digit",
     minute: "2-digit",
   });
-
+  const { categoryKey } = useParams();
   const navigate = useNavigate();
 
   const navigateToProductDetail = () => {
-    navigate(`/all/${id}`);
+    const path = categoryKey ? `/${categoryKey}/${id}` : `/all/${id}`;
+    navigate(path);
   };
 
   return (
@@ -50,7 +54,7 @@ const ProductCard = ({
           <p className="text-darkgrey text-xs">
             {readableDate} at {readableTime}
           </p>
-          <button onClick={handleLikeClick}>{liked ? <NotLikeIcon /> : <LikeIcon />}</button>
+          <button onClick={handleLikeClick}>{liked ? <LikeIcon/> : <NotLikeIcon/> }</button>
         </div>
       </div>
     </div>

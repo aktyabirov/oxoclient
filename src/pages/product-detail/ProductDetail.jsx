@@ -4,15 +4,16 @@ import { useFetchDetail } from "../../hooks/useFetchDetail";
 import { useDispatch, useSelector } from "react-redux";
 
 
+
 const ProductDetailPage = () => {
   const dispatch = useDispatch();
-  const {id } = useParams();
+  const { id, categoryKey } = useParams();
   const {
     data: product,
     isLoading,
     isError,
     error,
-  } = useFetchDetail(id);
+  } = useFetchDetail(categoryKey, id);
 
   
   if (isLoading) return <div>Loading...</div>;

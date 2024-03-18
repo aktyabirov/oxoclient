@@ -6,7 +6,7 @@ import ProductCard from '../../components/ProductCard';
 
 const fetchCategoryProducts = async ({ queryKey }) => {
   const categoryKey = queryKey[1];
-  const response = await axios.get(`http://localhost:8080/${categoryKey}`);
+  const response = await axios.get(`https://oxoserver.onrender.com/${categoryKey}`);
   return response.data;
 };
 
@@ -37,7 +37,7 @@ const CategoryPage = () => {
     <div className='container'>
       <h2 className='font-bold text-2xl px-4 py-4'>Products in {categoryKey}</h2>
       <div className='container'>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
         {products?.map((product) => (
           <ProductCard key={product.id} {...product} />
         ))}

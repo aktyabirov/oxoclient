@@ -26,7 +26,7 @@ const CreateProduct = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/categories');
+        const response = await axios.get('https://oxoserver.onrender.com/categories');
         setCategories(response.data);
       } catch (error) {
         console.error('Failed to fetch categories:', error);
