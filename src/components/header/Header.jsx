@@ -20,7 +20,7 @@ const Header = () => {
 
   const clearSearchInput = () => {
     setSearchTerm("");
-    setShowResults(false); // Also hide the search results
+    setShowResults(false); 
   };
 
 

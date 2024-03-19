@@ -4,17 +4,14 @@ import { useQueries } from '@tanstack/react-query';
 import ProductCard from '../../components/ProductCard';
 import axios from 'axios';
 
-// Assuming this function fetches product details given an ID
 const fetchProductDetails = async (id) => {
   const response = await axios.get(`http://localhost:8080/all/${id}`);
   return response.data;
 };
 
 const FavoritesPage = () => {
-  // Fetch likedProductIds from Redux store or local storage
   const likedProductIds = useSelector(state => state.likes.likedProducts);
 
-  // Execute queries to fetch details for all liked products
   const productQueries = useQueries({
     queries: likedProductIds.map(id => ({
       queryKey: ['product', id],
@@ -22,7 +19,6 @@ const FavoritesPage = () => {
     })),
   });
 
-  // Check if any query is loading
   const isLoading = productQueries.some(query => query.isLoading);
 
   if (isLoading) {
@@ -37,7 +33,7 @@ const FavoritesPage = () => {
           if (query.isSuccess) {
             return <ProductCard key={index} {...query.data} />;
           }
-          return null; // Or a placeholder for error/loading states if needed
+          return null; 
         })}
       </div>
     </div>
